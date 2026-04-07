@@ -15,6 +15,7 @@
   --clip-v:polygon(0% 0%,100% 0%,100% 100%,0% 100%);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden;max-width:100%}
 html{scroll-behavior:smooth}
 body{
   font-family:'Inter',system-ui,sans-serif;
@@ -50,7 +51,7 @@ body{
 .serif{font-family:'Playfair Display',Georgia,serif}
 .section-divider{height:1px;background:linear-gradient(to right,transparent,rgba(184,151,62,.3),transparent)}
 /* Img cover */
-.img-cover{width:100%;height:100%;object-fit:cover;object-position:center top}
+.img-cover{width:100%;height:100%;object-fit:cover;object-position:center}
 /* Bento grid */
 .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem}
 /* FAQ */
@@ -65,14 +66,42 @@ footer img{filter:grayscale(1);opacity:.45}
 .step-num{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;color:#B8973E;line-height:1;display:block;margin-bottom:.25rem}
 /* Responsive */
 @media(max-width:768px){
-  .grid-2{grid-template-columns:1fr;gap:2.5rem}
+  .grid-2{grid-template-columns:1fr;gap:2rem!important}
   .bento{grid-template-columns:1fr}
   .bento > div{grid-column:1 / -1 !important}
-  .bento-cta{flex-direction:column}
-  .hero-img-wrapper{height:380px!important}
+  .bento-cta{flex-direction:column;text-align:center;padding:2rem 1.5rem!important;gap:1.5rem!important}
+  .bento-cta a.btn-cta{width:100%}
+  
+  .hero-img-wrapper{height:340px!important}
   .hide-mob{display:none}
-  .contrast-grid{grid-template-columns:1fr!important}
-  header{padding:.6rem 1rem}
+  .contrast-grid{grid-template-columns:1fr!important;gap:1.5rem!important}
+  .contrast-grid > div{padding:1.5rem!important}
+  
+  header{padding:.75rem 1.25rem!important;justify-content:space-between!important}
+  header img{height:42px!important;width:auto!important}
+  header a.btn-ghost{font-size:0.65rem;padding:0.4rem 0.8rem}
+  
+  #hero{height:auto!important;min-height:calc(100dvh - 72px);padding:2rem 1.5rem!important}
+  #hero .grid-2{gap:2rem!important;padding-top:1.5rem}
+  h1.hero-headline{font-size:2.1rem!important;line-height:1.2!important}
+  
+  section{padding:4rem 1.5rem!important}
+  
+  div[style*="min-height: 580px"],
+  div[style*="min-height:580px"],
+  div[style*="height: 620px"],
+  div[style*="height:620px"],
+  div[style*="height: 580px"],
+  div[style*="height:580px"] {
+    min-height:340px!important;
+    height:340px!important;
+  }
+  
+  .btn-cta{width:100%;justify-content:center;white-space:normal!important;text-align:center;padding:1rem!important;line-height:1.4}
+  .fade-up h2.serif{font-size:1.85rem!important}
+  
+  details summary{font-size:0.9rem!important;padding:1rem 0!important}
+  footer{padding:2.5rem 1.5rem!important}
 }
 </style>
 </head>
