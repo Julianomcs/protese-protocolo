@@ -512,83 +512,13 @@ footer img{filter:grayscale(1);opacity:.45}
 </footer>
 
 <!-- ═══════════ JS ═══════════ -->
-<script>
-(function(){
-  const io = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        e.target.classList.add('revealed');
-        io.unobserve(e.target);
-      }
-    });
-  },{threshold:0.13});
-  document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
-
-  // Hero reveal — dispara no próximo frame disponível (não espera window.load)
-  // Duplo RAF: garante que o browser pintou o estado inicial antes de animar
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    document.querySelectorAll('.hero-headline,.hero-img-wrapper').forEach(el=>el.classList.add('revealed'));
-  }));
-
-  // Meta Pixel — Evento de conversão em todos os botões de WhatsApp
-  document.querySelectorAll('a[href*="api.whatsapp.com"]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      if(typeof fbq === 'function'){
-        fbq('track', 'Entrar em contato');
-      }
-    });
-  });
-
-  // Magnetic Repelling Effect — apenas desktop (evita reflow desnecessário em mobile)
-  const magContainer = document.getElementById('magnetic-container');
-  const magImg = document.getElementById('magnetic-img');
-  if(magContainer && magImg && window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
-    let rafId;
-    magContainer.addEventListener('mousemove', (e) => {
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        const rect = magContainer.getBoundingClientRect();
-        const moveX = -(e.clientX - (rect.left + rect.width / 2)) * 0.08;
-        const moveY = -(e.clientY - (rect.top + rect.height / 2)) * 0.08;
-        magImg.style.transform = `scale(0.85) translate(${moveX}px, ${moveY}px)`;
-      });
-    });
-    magContainer.addEventListener('mouseleave', () => {
-      cancelAnimationFrame(rafId);
-      magImg.style.transform = `scale(0.85) translate(0, 0)`;
-    });
-  }
-})();
-</script>
-
-<!-- Meta Pixel Code — carregado após o conteúdo principal -->
-<script async>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '700627379208265');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=700627379208265&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-
-<!-- Microsoft Clarity — adiado para depois de window.load para não causar forced reflow durante renderização -->
-<script>
-window.addEventListener('load', function() {
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wd4cvnqfsf");
-}, {once: true});
-</script>
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "x7h3zlx0bc");
+    </script>
 <!-- End Microsoft Clarity -->
 </body>
 </html>
