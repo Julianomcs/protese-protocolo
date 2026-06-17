@@ -520,5 +520,22 @@ footer img{filter:grayscale(1);opacity:.45}
         })(window, document, "clarity", "script", "x7h3zlx0bc");
     </script>
 <!-- End Microsoft Clarity -->
+<!-- Lead WhatsApp -> Painel de Leads -->
+<script>
+(function () {
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyP-W7KBRFDZ04ku_POfuaC1-i5yl9e3k5H5eApYDCtdhpBd4XdbMFSNmG_l0w60cqODA/exec';
+  var RX = /wa\.me|api\.whatsapp\.com|whatsapp\.com\/send/i;
+  function pagina() { return location.hostname + location.pathname.replace(/\/+$/, ''); }
+  function send() {
+    var payload = JSON.stringify({ url: pagina(), tipo: 'whats' });
+    try { navigator.sendBeacon(ENDPOINT, new Blob([payload], { type: 'text/plain' })); }
+    catch (e) { fetch(ENDPOINT, { method: 'POST', body: payload, keepalive: true }); }
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (a && RX.test(a.href)) send();
+  }, true);
+})();
+</script>
 </body>
 </html>
