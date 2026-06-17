@@ -524,9 +524,28 @@ footer img{filter:grayscale(1);opacity:.45}
 <script>
 (function () {
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyP-W7KBRFDZ04ku_POfuaC1-i5yl9e3k5H5eApYDCtdhpBd4XdbMFSNmG_l0w60cqODA/exec';
+  var WINDOW_MS = 30 * 60 * 1000;
+  function setCookie(n, v, days) {
+    var d = new Date(); d.setTime(d.getTime() + days * 86400000);
+    var dom = location.hostname.indexOf('v4lima.com') !== -1 ? '; domain=.v4lima.com' : '';
+    document.cookie = n + '=' + v + '; expires=' + d.toUTCString() + '; path=/' + dom + '; SameSite=Lax';
+  }
+  function getCookie(n) { return (document.cookie.match('(^|; )' + n + '=([^;]*)') || [])[2] || ''; }
+  var m = location.search.match(/[?&]optout=([01])/);
+  if (m) { if (m[1] === '1') setCookie('painel_optout', '1', 3650); else setCookie('painel_optout', '', -1); }
+  if (getCookie('painel_optout') === '1') return;
+  if (navigator.webdriver) return;
   var RX = /wa\.me|api\.whatsapp\.com|whatsapp\.com\/send/i;
   function pagina() { return location.hostname + location.pathname.replace(/\/+$/, ''); }
+  function recent(key) {
+    try {
+      var t = +localStorage.getItem(key) || 0;
+      if (Date.now() - t < WINDOW_MS) return true;
+      localStorage.setItem(key, Date.now()); return false;
+    } catch (e) { return false; }
+  }
   function send() {
+    if (recent('painel_whats_' + pagina())) return;
     var payload = JSON.stringify({ url: pagina(), tipo: 'whats' });
     try { navigator.sendBeacon(ENDPOINT, new Blob([payload], { type: 'text/plain' })); }
     catch (e) { fetch(ENDPOINT, { method: 'POST', body: payload, keepalive: true }); }
